@@ -27,11 +27,15 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.neoforgeServers."neoforge-1_21_1-21_1_244";
-      defaultText = literalExpression ''pkgs.neoforgeServers."neoforge-1_21_1-21_1_244"'';
+      default = pkgs.neoforgeServers."neoforge-1_21_1-21_1_244".override {
+        jre_headless = pkgs.jdk21_headless;
+      };
+      defaultText = literalExpression ''
+        pkgs.neoforgeServers."neoforge-1_21_1-21_1_244".override { jre_headless = pkgs.jdk21_headless; }
+      '';
       description = ''
         The server package to run, from nix-minecraft's overlay. Defaults to NeoForge
-        21.1.244 for Minecraft 1.21.1, pinned to match MBTA's modpack. See the
+        21.1.244 for Minecraft 1.21.1 on Java 21, pinned to match MBTA's modpack. See the
         nix-minecraft README for `vanillaServers`, `fabricServers`, `quiltServers`,
         `paperServers` and `purpurServers` alternatives if you ever want an unmodded or
         differently-modded server instead.
