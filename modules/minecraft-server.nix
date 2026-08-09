@@ -159,7 +159,7 @@ in
       type = types.nullOr types.package;
       default = pkgs.fetchModrinthModpack {
         src = ../modpacks/mbta;
-        packHash = "sha256-gtLSeIlmYXm+uNyhzDQ81Fh3958jtY7UsYsvtBcfBvk=";
+        packHash = "sha256-zns5a00ZATdeq6ZbfSQ71OXQGNERZ+Lozu+vtqUIOcg=";
         side = "server";
       };
       defaultText = literalExpression ''
