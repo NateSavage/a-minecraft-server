@@ -83,7 +83,7 @@ in
 
     motd = mkOption {
       type = types.str;
-      default = "Mags Bee Transit Authority";
+      default = "A NeoForge Minecraft Server";
       description = "MOTD shown in the multiplayer server list.";
     };
 
@@ -101,49 +101,30 @@ in
 
     whitelist = mkOption {
       type = types.attrsOf types.str;
-      default = {
-        nobodywasishere = "22d4f7ac-6b1c-440d-b9be-bb65019c3417";
-        Fr0stByte212 = "804d5654-3b84-493d-ac3d-bf406c8843ee";
-        FrogZilla10 = "bf85cd01-b6bb-42a0-bffd-d4288f6d532c";
-        zpogre = "013985cd-66f9-4022-85df-4ea8f9b418de";
-        poppyPotatoe = "c3aaf795-dd67-4a92-8203-18522be727e6";
-        PixeLInc = "eab1f63c-feaa-41f9-ab0e-dbe11e9d4223";
-        EEPOM = "4d41ce0f-1d15-4e82-b05e-e05ae6c763ac";
-        ItsJustGeek = "7c730257-5dce-45c0-8921-bf937026b6df";
-        zsixtyfour = "132ff8b2-a55e-40e4-8f76-3592b724ccde";
-        LunarWisteria = "93b99e23-b02c-43c5-994e-88c319d62cf2";
-        _Mr_Kittyhawk_ = "9aadb77d-6b0f-4269-8c71-7ee28e266acc";
-        Kmeyerson = "5fb21b36-665c-4b5c-958b-079ffa64549c";
-        Meheksie_ = "ef632ac2-b15e-4b86-898a-48514a6497ea";
-      };
+      default = { };
       example = literalExpression ''
         {
           Notch = "069a79f4-44e9-4726-a5be-fca90e38aaf5";
         }
       '';
       description = ''
-        Whitelisted players as `username = uuid;`. Leaving this empty leaves the server
-        open to anyone; adding an entry here also flips `white-list` on in
-        server.properties. Look up UUIDs at https://mcuuid.net/ or similar.
+        Whitelisted players as `username = uuid;`. Look up UUIDs at
+        https://mcuuid.net/ or similar.
       '';
     };
 
     operators = mkOption {
       type = types.attrsOf types.str;
-      default = {
-        nobodywasishere = "22d4f7ac-6b1c-440d-b9be-bb65019c3417";
-        ItsJustGeek = "7c730257-5dce-45c0-8921-bf937026b6df";
-      };
+      default = { };
       example = literalExpression ''
         {
           Notch = "069a79f4-44e9-4726-a5be-fca90e38aaf5";
         }
       '';
       description = ''
-        Server operators as `username = uuid;`, all granted permission level 4. For
-        per-operator levels or `bypassesPlayerLimit`, set
-        `services.minecraft-servers.servers.<serverName>.operators` directly instead —
-        see the nix-minecraft README.
+        Server operators as `username = uuid;`, all granted permission level 4. 
+        For per-operator levels or `bypassesPlayerLimit`, 
+        set `services.minecraft-servers.servers.<serverName>.operators` directly instead. See the nix-minecraft README.
       '';
     };
 

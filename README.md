@@ -130,19 +130,29 @@ sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
 ### 3. Configure
 
-MBTA's identity, mods, and config are already set — there's not much left to do:
+MBTA's identity (mods, config, NeoForge version, memory, JVM tuning) is already set. What's
+left is deployment-specific and deliberately *not* baked into this public repo —
+`whitelist`/`operators`/`motd` default empty/generic on purpose (see
+[Security notes](#security-notes)):
 
 ```nix
 {
   services.minecraftServer = {
     enable = true;
     sopsFile = ./secrets/minecraft.yaml;
+
+    motd = "however you want it to show up in the server list";
+    whitelist = {
+      Notch = "069a79f4-44e9-4726-a5be-fca90e38aaf5";
+    };
+    operators = {
+      Notch = "069a79f4-44e9-4726-a5be-fca90e38aaf5";
+    };
   };
 }
 ```
 
-Everything else (whitelist, ops, memory, etc.) already defaults to MBTA's real values — see
-[Options reference](#options-reference) if you want to override any of them.
+See [Options reference](#options-reference) for everything else you can override.
 
 ### 4. Deploy
 
@@ -168,13 +178,13 @@ All under `services.minecraftServer.*`:
 | `package`                | NeoForge `21.1.244` / MC `1.21.1` | Server flavor/version. See [Running something other than MBTA](#running-something-other-than-mbta). |
 | `port`                   | `25579`                           | Game port; opened in the firewall if `openFirewall`. Also used for `query.port` (query itself is off). |
 | `openFirewall`           | `true`                            | Open `port`. Never affects the RCON port.                  |
-| `memory`                 | `"10G"`                           | JVM `-Xmx`/`-Xms`. Heap only — see the option's own doc comment for host RAM sizing. |
+| `memory`                 | `"16G"`                           | JVM `-Xmx`/`-Xms`. Heap only — see the option's own doc comment for host RAM sizing. |
 | `extraJvmOpts`           | G1GC tuning flags                 | Extra flags appended after `-Xmx`/`-Xms`.                   |
-| `motd`                   | `"Mags Bee Transit Authority"`    | Server list MOTD.                                          |
+| `motd`                   | `"A NeoForge Minecraft Server"`   | Server list MOTD. Generic on purpose — see [Security notes](#security-notes). |
 | `difficulty`             | `"easy"`                          | `peaceful` / `easy` / `normal` / `hard`.                    |
 | `maxPlayers`             | `20`                              | Concurrent player cap.                                     |
-| `whitelist`              | MBTA's real 13 players            | `{ username = "uuid"; }`. Non-empty also sets `white-list = true`. |
-| `operators`              | MBTA's real 2 ops                 | `{ username = "uuid"; }`, all at permission level 4.        |
+| `whitelist`              | `{}`                              | `{ username = "uuid"; }`. Empty on purpose — see [Security notes](#security-notes). Non-empty also sets `white-list = true`. |
+| `operators`              | `{}`                              | `{ username = "uuid"; }`, all at permission level 4. Empty on purpose — see [Security notes](#security-notes). |
 | `bannedPlayers`          | `{}` (currently empty for real)   | `{ username = "uuid"; }`. For ban metadata, set nix-minecraft's own option directly. |
 | `extraServerProperties`  | `{}`                              | Anything else for `server.properties`, merged in last, highest precedence. |
 | `modpack`                | MBTA's real modpack (built from `modpacks/mbta/`) | A `pkgs.fetchModrinthModpack` derivation; its `mods/` gets symlinked in. `null` = unmanaged `mods/` (hand-drop jars). See [The modpack](#the-modpack). |
@@ -334,10 +344,13 @@ reconcile the two into one `environmentFile`.
   (`sudo` because the decrypted secret is root-only-readable by default.)
 - If your router forwards `port` to this host for public play, that forwarding is configured
   on the router, not here — don't forward the RCON port.
-- MBTA's real whitelist/ops UUIDs are baked in as defaults. This is not sensitive data —
-  Minecraft usernames and UUIDs are public information (anyone can resolve one from the
-  other via Mojang's own API) — but if you fork this for an unrelated server, you'll want to
-  replace them.
+- `whitelist`/`operators`/`motd` default empty/generic on purpose, even though Minecraft
+  usernames and UUIDs aren't secret (anyone can resolve one from the other via Mojang's own
+  API) — this repo is public, and there's no reason to tie a specific friend group to it by
+  default. Set the real values from your own deployment-specific config instead — see
+  [Sharing inputs with an existing flake](#sharing-inputs-with-an-existing-flake) for the
+  general pattern; concretely, that's `common/services/minecraft.nix` in this server's own
+  infra repo.
 
 ## Sharing inputs with an existing flake
 
