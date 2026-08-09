@@ -1,0 +1,11 @@
+# Nix build results
+result
+result-*
+
+# direnv
+.direnv/
+.envrc.local
+
+# OS cruft
+.DS_Store
+Thumbs.db

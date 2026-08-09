@@ -1,0 +1,39 @@
+#Server name
+#Can be set to anything, and shows for server-related events
+server-webhook-name = "big rat"
+#User avatar provider
+#Replace the part where the UUID is located with %s
+user-avatar-url = "https://mc-heads.net/avatar/%s"
+#Webhook mode
+#Options: "message", "embed" or "list"
+#"message" sends messages with the bot using the persons mc username. "embed" sends everything in embeds. "list" sends messages like a list.
+webhook-mode = "message"
+#Format for sending messages in "list" mode
+#First %s is username Second %s is message content
+#Default: %s > %s
+list-message-format = "**%s** > %s"
+#Player Message
+event-player-message-enabled = false
+#Server starting
+event-server-starting-enabled = true
+event-server-starting-message = ":green_circle: The server is starting"
+#Server started
+event-server-started-enabled = false
+event-server-started-message = "Server Started!"
+#Server stopping
+event-server-stopping-enabled = true
+event-server-stopping-message = ":no_entry: The server is stopping"
+#Server stopped
+event-server-stopped-enabled = false
+event-server-stopped-message = "Server Stopped!"
+#Player join
+#%s = username of player
+event-player-join-enabled = true
+event-player-join-message = ":smile: %s has joined the server"
+#Player leave
+#%s = username of player
+event-player-leave-enabled = true
+event-player-leave-message = ":cry: %s has left the server"
+#Discord webhook URI
+#How to get a webhook: https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+webhook-uri = "https://discord.com/api/webhooks/1372282674299015188/sXp8bJcu6dDulRcVo9YfZ-epCNpBNz3J2eHMIb-CXM6G_JxhSciGgf5-RAE0t_xbIh3s"

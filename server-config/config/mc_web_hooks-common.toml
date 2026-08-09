@@ -1,0 +1,6 @@
+webHookUrl = "https://discord.com/api/webhooks/1372282674299015188/sXp8bJcu6dDulRcVo9YfZ-epCNpBNz3J2eHMIb-CXM6G_JxhSciGgf5-RAE0t_xbIh3s"
+serverStartingMessage = ":green_circle: The server is starting"
+serverStoppingMessage = ":no_entry: The server is stopping"
+playerLoggedInTemplate = ":smile: %s has joined the server"
+playerLoggedOutTemplate = ":cry: %s has left the server"
+

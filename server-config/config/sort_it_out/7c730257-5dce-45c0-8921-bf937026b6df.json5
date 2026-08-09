@@ -1,0 +1,16 @@
+{
+	// - default: false
+	"invertSorting": false,
+	/* - default: [DISPLAY_NAME, COUNT, DURABILITY]
+	   - values must be one of: COUNT, CREATIVE_TAB, DISPLAY_NAME, DURABILITY, NAMESPACE, ENCHANTMENTS
+	*/
+	"comparators": [
+		"DISPLAY_NAME",
+		"COUNT",
+		"DURABILITY"
+	],
+	/* - default: DOUBLE_CLICK_EMPTY_SLOT
+	   - must be one of: PRESS_OFFHAND_KEY, PRESS_OFFHAND_KEY_EMPTY_SLOT, DOUBLE_CLICK_EMPTY_SLOT, NONE
+	*/
+	"slotSortingTrigger": "DOUBLE_CLICK_EMPTY_SLOT"
+}

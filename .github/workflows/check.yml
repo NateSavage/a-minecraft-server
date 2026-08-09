@@ -1,0 +1,26 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  flake-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
+          echo "/nix/var/nix/profiles/default/bin" >> "$GITHUB_PATH"
+
+      - name: nix flake check
+        run: nix --extra-experimental-features "nix-command flakes" flake check -L
+
+      # Actually builds the modpack (all ~124 mod jars, hash-verified) and the NeoForge
+      # server package — `flake check` only evaluates derivations, it doesn't build them
+      # by default. This is what actually catches a stale `packHash` or a disappeared
+      # NeoForge pin automatically, instead of on the production box.
+      - name: build MBTA modpack + server
+        run: nix --extra-experimental-features "nix-command flakes" build .#mbtaModpack .#mbtaServer -L

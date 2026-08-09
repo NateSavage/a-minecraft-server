@@ -1,0 +1,4 @@
+#Flags that control recipes and features
+[flags]
+	#Enable or disable the crafting recipe for Rare Candy
+	enable_rare_candy_recipe = true
