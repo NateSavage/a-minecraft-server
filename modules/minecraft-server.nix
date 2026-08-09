@@ -172,18 +172,9 @@ in
 
     modpack = mkOption {
       type = types.nullOr types.package;
-      # Mods only — MBTA's actual per-mod config lives at ../server-config/config
-      # (wired below via collectFilesAt) rather than through this modpack's own
-      # overrides/, since the modpack export's overrides were captured from a client
-      # instance (has client-only mod config the server would never generate) while
-      # ../server-config/config is a direct copy of the real server's own config —
-      # more authoritative for anything server-side. See README's "The modpack" section.
       default = pkgs.fetchModrinthModpack {
         src = ../modpacks/mbta;
-        # Bootstrapped 2026-08-09 via `nix build .#mbtaModpack` with a fake hash and
-        # reading the real one back out of the resulting mismatch error. Needs redoing
-        # (same way) every time modpacks/mbta/modrinth.index.json changes.
-        packHash = "sha256-DtKPsCBPXU3C+dF1f1z9vjbbDzJArBlSxn3l2zWUYCU=";
+        packHash = "sha256-gtLSeIlmYXm+uNyhzDQ81Fh3958jtY7UsYsvtBcfBvk=";
         side = "server";
       };
       defaultText = literalExpression ''
